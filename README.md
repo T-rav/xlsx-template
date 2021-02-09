@@ -83,6 +83,48 @@ those objects have keys `name` and `age`, you may end up with something like:
 If a particular value is an array, then it will be repeated across columns as
 above.
 
+### Images
+
+You can insert images with   
+
+    | My image: | ${image:imageName} |
+
+Given data
+
+    var template = { imageName: "helloImage.jpg"}
+
+You can insert a list of images with   
+
+    | My images | ${table:images.name:image} |
+
+Given data
+
+    var template = { images: [{name : "helloImage1.jpg"}, {name : "helloImage2.jpg"}]}
+
+Supported image format in given data : 
+- Base64 string
+- Base64 Buffer
+- Absolute path file
+- relative path file (absolute is prior to relative in test)
+- URL : TODO
+
+You can pass imageRootPath option for setting the root folder for your images.  
+
+    var option = {imageRootPath : "/path/to/your/image/dir"}  
+    ...  
+    var t = new XlsxTemplate(data, option);
+
+If the image Placeholders is in standard cell, image is insert normaly  
+If the image Placeholders is in merge cell, image feet (at the best) the size of the merge cell.
+
+You can pass imageRatio option for adjust the ratio image (in percent and for standard cell - not applied on merge cell)
+ 
+    var option = {imageRatio : 75.4}  
+    ...  
+    var t = new XlsxTemplate(data, option);
+
+
+
 ## Generating reports
 
 To make this magic happen, you need some code like this:
@@ -160,6 +202,26 @@ You can pass options to `generate()` to set a different return type. use
   other such things.
 
 ## Changelog
+
+### Version 1.3.0
+* Added support for optional moving of the images together with table. (#109)
+
+### Version 1.2.0
+* Specify license field in addition to licenses field in the package.json (#102)
+
+### Version 1.1.0
+* Added TypeScript definitions. #101
+* NodeJS 12, 14 support
+
+### Version 1.0.0
+Nothing to see here. Just I'm being brave and make version 1.0.0
+
+### Version 0.5.0
+* Placeholder in hyperlinks. #87
+* NodeJS 10 support
+
+### Version 0.4.0
+* Fix wrongly replacing text in shared strings #81
 
 ### Version 0.2.0
 
